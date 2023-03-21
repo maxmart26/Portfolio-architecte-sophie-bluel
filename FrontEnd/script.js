@@ -1,4 +1,4 @@
-test()
+
 
 async function test(){
 let url = 'http://localhost:5678/api/works'
@@ -6,9 +6,10 @@ let url = 'http://localhost:5678/api/works'
         await fetch(url)
     .then(reponse => reponse.json())
     .then((reponse2)=>{
+        supp();
         for(let data of reponse2){
             let display =""
-            display += `<figure>
+            display += `<figure> 
             <img src=${data.imageUrl} alt=${data.title}>
             <figcaption>${data.title}</figcaption>
         </figure>`
@@ -19,11 +20,25 @@ let url = 'http://localhost:5678/api/works'
     } catch (error) {
         console.log("grosnull" + error)
     }
-       
 }
 
-gggg
-fetch('http://localhost:5678/api/')
+function supp(){
+let gallery = document.getElementsByClassName("gallery");
+let supp = document.getElementById("gellery");
+
+while (gallery[0].firstChild) {
+  gallery[0].removeChild(gallery[0].firstChild);
+}
+}
+
+fetch('http://localhost:5678/api/categories')
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(data) {
+        console.log(data);
+    });
+fetch('http://localhost:5678/api/works')
     .then(function(response){
         return response.json();
     })
