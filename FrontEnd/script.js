@@ -1,9 +1,9 @@
 
-
-async function test(){
+let Tous = document.getElementById("Tous");
+Tous.addEventListener("click", function Tous(){
 let url = 'http://localhost:5678/api/works'
     try {
-        await fetch(url)
+        fetch(url)
     .then(reponse => reponse.json())
     .then((reponse2)=>{
         supp();
@@ -20,7 +20,32 @@ let url = 'http://localhost:5678/api/works'
     } catch (error) {
         console.log("grosnull" + error)
     }
+})
+function user(){
+    let url = 'http://localhost:5678/api/categories'
+    .then(reponse => reponse.json())
+    .then((reponse2)=>{
+    checkid = id.filter(user => user.id = 1);
+    console.log(checkid)})
 }
+categories();
+async function categories(){
+    let url = 'http://localhost:5678/api/categories'
+    try {
+        await fetch(url)
+        fetch(url)
+        .then(reponse3 => reponse3.json())
+        .then((reponse3)=>{
+            for(let data of reponse3){
+                let display =''
+                display += `<button id="${data.name}" type="button">${data.name}</button>`
+                document.querySelector("#filtre").insertAdjacentHTML("beforeend",display)
+            }
+        })
+    } catch (error) {
+        console.log("no categories" + error)
+    }
+};
 
 function supp(){
 let gallery = document.getElementsByClassName("gallery");
