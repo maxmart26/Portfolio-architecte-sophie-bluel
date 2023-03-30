@@ -91,3 +91,5 @@ filtres.addEventListener("click", function filtres(){
             console.log("grosnull" + error)
         }
 });
+var values = document.getElementById('filtre');
+console.log(values)
