@@ -1,46 +1,81 @@
+// global
+const filtres = document.getElementById("filtre");
 
+// function
 
-let Tous = document.getElementById("Tous");
-Tous.addEventListener("click", function Tous(){
-let url = 'http://localhost:5678/api/works'
-    try {
-        fetch(url)
-    .then(reponse => reponse.json())
-    .then((reponse2)=>{
-        supp();
-        for(let data of reponse2){
-            let display =""
-            display += `<figure> 
-            <img src=${data.imageUrl} alt=${data.title}>
-            <figcaption>${data.title}</figcaption>
-        </figure>`
-        document.querySelector(".gallery").insertAdjacentHTML("beforeend",display)
-        }
-    })
-    .catch((error)=>console.log("indisponible" + error))
-    } catch (error) {
-        console.log("grosnull" + error)
-    }
-})
-
-categories();
 async function categories(){
     let url = 'http://localhost:5678/api/categories'
-    try {
-        await fetch(url)
-        fetch(url)
-        .then(reponse3 => reponse3.json())
-        .then((reponse3)=>{
-            for(let data of reponse3){
+    let displaynumber = 1;
+    const res = await fetch(url)
+    const datas = await res.json()
+    for(let data of datas){
+        let display = document.createElement('button')
+        display.value = displaynumber
+        display.innerHTML = data.name
+        display.id = data.name
+        display.classList.add("filter")
+        filtres.appendChild(display)
+        displaynumber++
+    } 
+};
+
+function displayAll(){
+    let url = 'http://localhost:5678/api/works'
+        try {
+            fetch(url)
+        .then(reponse => reponse.json())
+        .then((reponse2)=>{
+            
+            for(let data of reponse2){
                 let display =""
-                display += `<button id=${data.name}  value=${data.id}>${data.name}</button>`
-                document.querySelector("#filtre").insertAdjacentHTML("beforeend",display)
+                display += `<figure> 
+                <img src=${data.imageUrl} alt=${data.title}>
+                <figcaption>${data.title}</figcaption>
+            </figure>`
+            document.querySelector(".gallery").insertAdjacentHTML("beforeend",display)
             }
         })
-    } catch (error) {
-        console.log("no categories" + error)
+        .catch((error)=>console.log("indisponible" + error))
+        } catch (error) {
+            console.log("grosnull" + error)
+        }
     }
-};
+
+let url = 'http://localhost:5678/api/works'
+
+function addListener(){
+    let buttons = document.querySelectorAll(".filter")
+    console.log(buttons)
+    for (const btn of buttons) {
+        console.log(btn.value);
+        btn.addEventListener("click",() => {
+            supp()
+            console.log(btn.value);
+            fetch(url)
+            .then(reponse => reponse.json())
+            .then((datas)=>{
+                if (btn.value == 0){
+                    displayAll()
+                }
+                else {
+                    for(let data of datas){
+                         if (data.categoryId == btn.value ){
+                        let display =""
+                        display += `<figure> 
+                        <img src=${data.imageUrl} alt=${data.title}>
+                        <figcaption>${data.title}</figcaption>
+                        </figure>`
+                        document.querySelector(".gallery").insertAdjacentHTML("beforeend",display)
+                        
+                        
+                    }else {
+                        
+                    }
+            }}})
+        }
+        )
+    }
+}
 
 function supp(){
     let gallery = document.getElementsByClassName("gallery");
@@ -49,47 +84,9 @@ function supp(){
         gallery[0].removeChild(gallery[0].firstChild);
     }
 }
+//application
 
-fetch('http://localhost:5678/api/categories')
-    .then(function(response){
-        return response.json();
-    })
-    .then(function(data) {
-        console.log(data);
-    });
+await categories()
+displayAll()
+addListener()
 
-fetch('http://localhost:5678/api/works')
-    .then(function(response){
-        return response.json();
-    })
-    .then(function(data) {
-        console.log(data);
-    });
-
-let filtres = document.getElementById("filtre");
-filtres.addEventListener("click", function filtres(){
-    let url = 'http://localhost:5678/api/works'
-        try {
-            supp()
-            fetch(url)
-            .then(reponse => reponse.json())
-            .then((reponse2)=>{
-            for(let data of reponse2){
-                    if (data.categoryId == 1){
-                        let display =""
-                        display += `<figure> 
-                        <img src=${data.imageUrl} alt=${data.title}>
-                        <figcaption>${data.title}</figcaption>
-                        </figure>`
-                        document.querySelector(".gallery").insertAdjacentHTML("beforeend",display)
-                    }else {
-                        
-                    }
-            }}
-            )
-        } catch (error) {
-            console.log("grosnull" + error)
-        }
-});
-var values = document.getElementById('filtre');
-console.log(values)
