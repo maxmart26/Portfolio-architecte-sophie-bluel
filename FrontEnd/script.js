@@ -45,12 +45,12 @@ let url = 'http://localhost:5678/api/works'
 
 function addListener(){
     let buttons = document.querySelectorAll(".filter")
-    console.log(buttons)
+    //console.log(buttons)
     for (const btn of buttons) {
-        console.log(btn.value);
+        //console.log(btn.value);
         btn.addEventListener("click",() => {
             supp()
-            console.log(btn.value);
+            //console.log(btn.value);
             fetch(url)
             .then(reponse => reponse.json())
             .then((datas)=>{
@@ -84,6 +84,8 @@ function supp(){
         gallery[0].removeChild(gallery[0].firstChild);
     }
 }
+
+// 
 //application
 
 await categories()

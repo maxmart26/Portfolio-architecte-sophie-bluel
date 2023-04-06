@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,6 +9,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/stylelogin.css">
+
 </head>
 <body>
     <header>
@@ -26,7 +26,7 @@
     <main>
         <section id="center">
         <h2>log in</h2>
-        <form action="#" method="post">
+        <form action="#" method="post" id="login-form">
             <div class="login">
             <label for="email">E-mail</label>
             </div>
@@ -39,9 +39,9 @@
             <div class="log">
 			<input type="password" name="password" id="password">
             </div>
+            <div id="log-bottom">
+            <button id="connection">Se connecter</button>
         </form>
-        <div id="log-bottom">
-        <button id="connection">Se connecter</button>
         <a href='#'><p>Mot de passe oublié</p></a>
         </div>
         </section>
@@ -54,4 +54,5 @@
         </nav>
     </footer>
 </body>
+<script type="module" src="login-script.js"></script>
 </html>
