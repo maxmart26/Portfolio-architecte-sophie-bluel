@@ -84,6 +84,52 @@ function supp(){
         gallery[0].removeChild(gallery[0].firstChild);
     }
 }
+// function pour apres le login
+
+export function top_nav(){
+    let display =""
+    display += 
+    `<div id="edition">
+    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+    <p>Mode édition</p>
+    </div>
+    <button id="button_edition">publier les changements</button>
+    `
+    document.querySelector("#top_nav").insertAdjacentHTML("beforeend",display)
+}
+
+export function modifier(){
+    let display =""
+    display += 
+    `<button class="modifier_child">
+    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+    <p>modifier</p>
+    <button>
+    `
+    document.querySelector(".modifier").insertAdjacentHTML("beforeend",display)
+}
+
+export function modifier2(){
+    let display =""
+    display += 
+    `<button class="modifier_child">
+    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+    <p>modifier</p>
+    <button>
+    `
+    document.querySelector(".modifier2").insertAdjacentHTML("beforeend",display)
+}
+
+export function modifier3(){
+    let display =""
+    display += 
+    `<button class="modifier_child">
+    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+    <p>modifier</p>
+    </button>
+    `
+    document.querySelector(".modifier3").insertAdjacentHTML("beforeend",display)
+}
 
 // 
 //application

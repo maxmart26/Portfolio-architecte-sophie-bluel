@@ -1,8 +1,11 @@
-
+/*import {top_nav} from "./script.js";
+import {modifier} from "./script.js";
+import {modifier2} from "./script.js";
+import {modifier3} from "./script.js";*/
 var emails = document.getElementById("email");
 var passwords = document.getElementById("password");
 let button = document.getElementById("connection")
-
+var compteur = 0;
 
 button.addEventListener("click", async (e) => {
     e.preventDefault()
@@ -12,7 +15,6 @@ button.addEventListener("click", async (e) => {
     }
     console.log(login);
     try {
-        supp()
         const reponse = await fetch("http://localhost:5678/api/users/login", {
             method: "POST",
             headers: { 'Content-Type': 'application/json'},
@@ -21,23 +23,28 @@ button.addEventListener("click", async (e) => {
         console.log("succes", reponse.status);
         if(reponse.status == 200)//vas a la page de connection
         {
-
+            top_nav();
+            modifier();
+            modifier2();
+            modifier3();
+            window.location.href="index.html"
         }
-        else if (reponse .status == 401)//lui indique que un probleme de connection
+        if (reponse.status != 200 )//lui indique que il y a probleme de connection
         {
+            compteur++;
+            console.log(compteur);
             let display =""
-            display += `votre email ou votre mot de passe est incorrect`
-                document.querySelector("#erreur").insertAdjacentHTML("beforeend",display)
+            display += `<div id="erreur"><p>votre email ou votre mot de passe est incorrect</p></div>`
+                document.querySelector("#probleme").insertAdjacentHTML("beforeend",display)
+        }
+        if ( compteur != 1)
+        {
+            var d = document.getElementById("probleme");
+            var d_nested = document.getElementById("erreur");
+            var supp = d.removeChild(d_nested)
         }
     }
     catch (error) {
         console.log("grosnull", error)
     }
 })
-
-function supp(){ 
-    let erreur = document.getElementById("erreur");
-    while (erreur[0].firstChild) {
-        erreur[0].removeChild(erreur[0].firstChild);
-    }
-}
