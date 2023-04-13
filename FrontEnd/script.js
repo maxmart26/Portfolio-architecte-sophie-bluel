@@ -1,5 +1,6 @@
 // global
 const filtres = document.getElementById("filtre");
+const gallery_modal = document.getElementById("gallery-modal");
 
 // function
 
@@ -25,7 +26,7 @@ function displayAll(){
             fetch(url)
         .then(reponse => reponse.json())
         .then((reponse2)=>{
-            
+            console.log(reponse2);
             for(let data of reponse2){
                 let display =""
                 display += `<figure> 
@@ -86,12 +87,12 @@ function supp(){
 }
 // function pour apres le login
 
-export function top_nav(){
+/*export function top_nav(){
     let display =""
     display += 
     `<div id="edition">
     <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-    <p>Mode édition</p>
+    Mode édition
     </div>
     <button id="button_edition">publier les changements</button>
     `
@@ -101,10 +102,10 @@ export function top_nav(){
 export function modifier(){
     let display =""
     display += 
-    `<button class="modifier_child">
+    `<a href="#modal1" class="js-modal">
     <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-    <p>modifier</p>
-    <button>
+    modifier
+    </a>
     `
     document.querySelector(".modifier").insertAdjacentHTML("beforeend",display)
 }
@@ -112,10 +113,10 @@ export function modifier(){
 export function modifier2(){
     let display =""
     display += 
-    `<button class="modifier_child">
+    `<a href="#modal1" class="js-modal">
     <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-    <p>modifier</p>
-    <button>
+    modifier
+    </a>
     `
     document.querySelector(".modifier2").insertAdjacentHTML("beforeend",display)
 }
@@ -123,18 +124,84 @@ export function modifier2(){
 export function modifier3(){
     let display =""
     display += 
-    `<button class="modifier_child">
+    `<a href="#modal1" class="js-modal">
     <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-    <p>modifier</p>
-    </button>
+    modifier
+    </a>
     `
     document.querySelector(".modifier3").insertAdjacentHTML("beforeend",display)
+}*/
+
+//pour la modal
+let modal = null
+
+const openModal = function (e) {
+    e.preventDefault()
+    const target = document.querySelector(e.target.getAttribute('href'))
+    target.style.display = null
+    target.removeAttribute('aria-hidden')
+    target.setAttribute('aria-modal','true')
+    modal = target
+    modal.addEventListener('click', closeModal)
+    modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
+    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
 }
 
-// 
+const closeModal = function (e) {
+    if (modal === null) return
+    e.preventDefault()
+    modal.style.display = "none"
+    modal.setAttribute('aria-hidden', 'true')
+    modal.removeAttribute('aria-modal')
+    modal.removeEventListener('click', closeModal)
+    modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
+    modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
+    modal = null
+}
+
+const stopPropagation = function (e) {
+    e.stopPropagation()
+}
+document.querySelectorAll('.js-modal').forEach(a => {
+    a.addEventListener('click', openModal)
+})
+
+
+async function displayAll_modal(){
+    let url = 'http://localhost:5678/api/works'
+            let displaynumber = 1;
+            const res = await fetch(url)
+            const datas = await res.json()
+            for(let data of datas){
+            let display = document.createElement('img')
+            let display1 = document.createElement('img')
+            
+            display1.src = data.imageUrl
+            display1.value = displaynumber
+            //voir pour ajouter le éditer
+            display1.classList.add("gallery-modal")
+            gallery_modal.appendChild(display1)
+            displaynumber++
+            console.log(display1);
+            console.log(data);
+            }
+            
+}
+
+window.addEventListener('keydown', function (e) {
+    if (e.key === "Escape" || e.key === "Esc") {
+        closeModal(e)
+    }
+})
 //application
 
 await categories()
 displayAll()
 addListener()
-
+displayAll_modal();
+//pour les tests
+   /* top_nav();
+    modifier();
+    modifier2();
+    modifier3();*/
+    

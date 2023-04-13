@@ -23,10 +23,10 @@ button.addEventListener("click", async (e) => {
         console.log("succes", reponse.status);
         if(reponse.status == 200)//vas a la page de connection
         {
-            top_nav();
+            /*top_nav();
             modifier();
             modifier2();
-            modifier3();
+            modifier3();*/
             window.location.href="index.html"
         }
         if (reponse.status != 200 )//lui indique que il y a probleme de connection

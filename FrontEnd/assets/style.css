@@ -207,3 +207,63 @@ footer nav ul {
 	color:white;
 	background-color:#1D6154;
 }
+/* css pour la modal*/
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-wrapper {
+	overflow: auto;
+	width: 800px;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 400px);
+	padding: 20px;
+	background-color: #fff;
+	
+	
+}
+#gallery-modal{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.modal-wrapper img {
+	margin: 20px;
+	max-width: 150px;
+	max-height: 200px;
+}
+#button-close{
+	width: 100%;
+	display: flex;
+	justify-content: end;
+	align-items: end;
+}
+.modal-close {
+	background-color: #fff;
+	border: none;
+	color: black;
+	font-size: 35px;
+}
+.modal-wrapper h3 {
+	margin-left: 280px;
+	font-size: 33px;
+}
+#add-pickture{
+	font-family: 'Syne';
+	font-weight: 700;
+	min-width: 100px;
+	padding: 9px;
+	font-size: 16px;
+	border-radius: 60px;
+	color: #fff;
+	background-color: #1D6154;
+	border: 1px solid #1D6154;
+}
