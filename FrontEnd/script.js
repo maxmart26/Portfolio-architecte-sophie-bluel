@@ -4,6 +4,9 @@ const gallery_modal = document.getElementById("gallery-modal");
 
 // function
 
+export function alerte () {alert ("coucou");
+}
+
 async function categories(){
     let url = 'http://localhost:5678/api/categories'
     let displaynumber = 1;
@@ -87,7 +90,7 @@ function supp(){
 }
 // function pour apres le login
 
-/*export function top_nav(){
+export function top_nav(){
     let display =""
     display += 
     `<div id="edition">
@@ -114,8 +117,7 @@ export function modifier2(){
     let display =""
     display += 
     `<a href="#modal1" class="js-modal">
-    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-    modifier
+    <i class="fa-sharp fa-solid fa-pen-to-square"></i>modifier
     </a>
     `
     document.querySelector(".modifier2").insertAdjacentHTML("beforeend",display)
@@ -124,19 +126,20 @@ export function modifier2(){
 export function modifier3(){
     let display =""
     display += 
-    `<a href="#modal1" class="js-modal">
+    `<a href="#modal1" class="js-modal" id="test">
     <i class="fa-sharp fa-solid fa-pen-to-square"></i>
     modifier
     </a>
     `
     document.querySelector(".modifier3").insertAdjacentHTML("beforeend",display)
-}*/
+}
 
 //pour la modal
 let modal = null
 
 const openModal = function (e) {
     e.preventDefault()
+    supp_img_modal()
     const target = document.querySelector(e.target.getAttribute('href'))
     target.style.display = null
     target.removeAttribute('aria-hidden')
@@ -145,8 +148,33 @@ const openModal = function (e) {
     modal.addEventListener('click', closeModal)
     modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+    console.log(target);
 }
-
+const openModal_add = function(e){
+    
+    e.preventDefault()
+    
+    const target = document.querySelector(e.target.getAttribute('href'))
+    target.style.display = null
+    target.removeAttribute('aria-hidden')
+    target.setAttribute('aria-modal','true')
+    modal = target
+    modal.addEventListener('click', closeModal)
+    modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
+    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+    console.log(target);
+}
+const closeModal_add = function (e) {
+    if (modal === null) return
+    e.preventDefault()
+    modal.style.display = "none"
+    modal.setAttribute('aria-hidden', 'true')
+    modal.removeAttribute('aria-modal')
+    modal.removeEventListener('click', closeModal)
+    modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
+    modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
+    modal = null
+}
 const closeModal = function (e) {
     if (modal === null) return
     e.preventDefault()
@@ -166,6 +194,13 @@ document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal)
 })
 
+document.querySelectorAll('.js-add-pickture').forEach(a => {
+    a.addEventListener('click', closeModal)
+    a.addEventListener('click', openModal_add)
+    
+})
+
+
 
 async function displayAll_modal(){
     let url = 'http://localhost:5678/api/works'
@@ -173,20 +208,63 @@ async function displayAll_modal(){
             const res = await fetch(url)
             const datas = await res.json()
             for(let data of datas){
-            let display = document.createElement('img')
+            let figure = document.createElement('figure')
+            let pictogramme = document.createElement('button')
+            let i = document.createElement('i')
             let display1 = document.createElement('img')
-            
+            pictogramme.classList.add("figcaption") 
+            i.classList.add("fa-regular")
+            i.classList.add("fa-trash-can")
+            i.classList.add("supp")
+            pictogramme.value = displaynumber
             display1.src = data.imageUrl
-            display1.value = displaynumber
-            //voir pour ajouter le éditer
+            i.value = displaynumber
             display1.classList.add("gallery-modal")
-            gallery_modal.appendChild(display1)
+            figure.appendChild(display1)
+            figure.appendChild(pictogramme)
+            gallery_modal.appendChild(figure)
+            pictogramme.appendChild(i)
             displaynumber++
-            console.log(display1);
-            console.log(data);
             }
             
 }
+
+function supp_img_modal(){
+    let buttons = document.querySelectorAll(".figcaption")
+    //console.log(buttons)
+    for (const btn of buttons) {
+        //console.log(btn.value);
+        btn.addEventListener("click",() => {
+            //console.log(btn.value)
+                        let display =""
+                        display += `iciiiiii`
+                        document.querySelector(".figcaption").insertAdjacentHTML("beforeend",display)
+                        //console.log(btn.value);
+                    })
+     }  
+    }
+
+    
+function add_img_modal(){
+    let url = 'http://localhost:5678/api/works'
+    let add_img = {
+        title: emails.value,
+        imageUrl: passwords.value,
+        categoryId: categorie.value
+    }
+    console.log(add_img);
+    try {
+        const reponse = fetch(url, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(add_imd)
+        })
+}
+catch (error) {
+    console.log("grosnull", error)
+}
+}
+
 
 window.addEventListener('keydown', function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
@@ -200,8 +278,8 @@ displayAll()
 addListener()
 displayAll_modal();
 //pour les tests
-   /* top_nav();
+    top_nav();
     modifier();
     modifier2();
-    modifier3();*/
+    modifier3();
     

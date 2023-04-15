@@ -1,7 +1,10 @@
-/*import {top_nav} from "./script.js";
-import {modifier} from "./script.js";
-import {modifier2} from "./script.js";
-import {modifier3} from "./script.js";*/
+/*import {top_nav} from "/script.js";
+import modifier from "/script.js";
+import modifier2 from "/script.js";
+import modifier3 from "/script.js";
+import {alerte} from "./script.js"
+alerte()*/
+
 var emails = document.getElementById("email");
 var passwords = document.getElementById("password");
 let button = document.getElementById("connection")

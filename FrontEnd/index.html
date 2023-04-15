@@ -72,11 +72,31 @@
 			<div id="gallery-modal">
 			</div>
 			<div>
-				<button id="add-pickture">Ajouter une photo</button>
+				<a href="#modal-add" class="js-add-pickture">Ajouter une photo</a>
 				<a href="#supp">Supprimer la galerie</a>
 			</div>
 		</div>
 	</aside>
+	<div id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title" style="display:none;">
+		<div class="modal_wrapper js-modal-stop">
+			<form action="#" method="post" id="modal_add"></form>
+				<div id="button-close">
+				<button class="js-modal-close modal-close"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+				</div>
+				<h3>Ajout photo</h3>
+				<div id="block_pickture">
+					<label for="image"><i class="fa-regular fa-image"></i></label>
+					<button type="image">+ Ajouter photo</button>
+					<p>jpg.png : 4mo max</p>
+				</div>
+				<label for="title">Titre</label>
+				<input type="text" name="title" id="title">
+				<label for="text">Categorie</label>
+				<input type="text" list="Categorie" name="Categorie">
+				<datalist id="Categorie"></datalist>
+		</div>
+	</div>
+
 </main>
 
 <footer>

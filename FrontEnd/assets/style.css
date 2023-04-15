@@ -236,9 +236,8 @@ footer nav ul {
 	flex-wrap: wrap;
 }
 .modal-wrapper img {
-	margin: 20px;
-	max-width: 150px;
-	max-height: 200px;
+	max-width: 80px;
+	max-height: 110px;
 }
 #button-close{
 	width: 100%;
@@ -266,4 +265,24 @@ footer nav ul {
 	color: #fff;
 	background-color: #1D6154;
 	border: 1px solid #1D6154;
+}
+.figcaption {
+	position: absolute;
+	
+	width: 20px;
+	height: 20px;
+	background-color: black;
+	color: #fff;
+	
+}
+.figcaption i{
+	display: flex;
+	align-items: center;
+	justify-content:center ;
+}
+#gallery-modal figure{
+	padding: 20px;
+	display: flex;
+	align-items: top;
+	justify-content: end;
 }
