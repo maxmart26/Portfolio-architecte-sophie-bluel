@@ -139,7 +139,6 @@ let modal = null
 
 const openModal = function (e) {
     e.preventDefault()
-    supp_img_modal()
     const target = document.querySelector(e.target.getAttribute('href'))
     target.style.display = null
     target.removeAttribute('aria-hidden')
@@ -150,31 +149,20 @@ const openModal = function (e) {
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
     console.log(target);
 }
-const openModal_add = function(e){
-    
+const openModal_add = function (e) {
     e.preventDefault()
-    
-    const target = document.querySelector(e.target.getAttribute('href'))
-    target.style.display = null
-    target.removeAttribute('aria-hidden')
-    target.setAttribute('aria-modal','true')
-    modal = target
+    const target2 = document.getElementById('modal2')
+    console.log(target2);
+    target2.style.display = null
+    target2.removeAttribute('aria-hidden')
+    target2.setAttribute('aria-modal','true')
+    modal = target2
     modal.addEventListener('click', closeModal)
     modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
-    console.log(target);
+    console.log(target2);
 }
-const closeModal_add = function (e) {
-    if (modal === null) return
-    e.preventDefault()
-    modal.style.display = "none"
-    modal.setAttribute('aria-hidden', 'true')
-    modal.removeAttribute('aria-modal')
-    modal.removeEventListener('click', closeModal)
-    modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
-    modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
-    modal = null
-}
+
 const closeModal = function (e) {
     if (modal === null) return
     e.preventDefault()
@@ -186,7 +174,16 @@ const closeModal = function (e) {
     modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
     modal = null
 }
-
+const all_closeModal = function(e){
+    if (modal === null) return
+    e.preventDefault()
+    modal.style.display = "none"
+    modal.setAttribute('aria-hidden', 'true')
+    modal.removeAttribute('aria-modal')
+    modal.removeEventListener('click', closeModal)
+    modal = null
+    closeModal()
+} 
 const stopPropagation = function (e) {
     e.stopPropagation()
 }
@@ -194,12 +191,17 @@ document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal)
 })
 
-document.querySelectorAll('.js-add-pickture').forEach(a => {
+document.querySelectorAll('#button-back').forEach(a => {
     a.addEventListener('click', closeModal)
-    a.addEventListener('click', openModal_add)
-    
 })
 
+document.querySelectorAll('.js-add-pickture').forEach(a => { 
+    a.addEventListener('click', openModal_add)  
+})
+document.querySelectorAll('.js-modal-close').forEach(a => { 
+    
+        a.addEventListener('click', all_closeModal)
+})
 
 
 async function displayAll_modal(){

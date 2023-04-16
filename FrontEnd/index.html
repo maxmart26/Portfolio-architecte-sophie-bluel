@@ -71,16 +71,17 @@
 			<h3>galerie photo</h3>
 			<div id="gallery-modal">
 			</div>
-			<div>
+			<div id="footer-modal">
 				<a href="#modal-add" class="js-add-pickture">Ajouter une photo</a>
-				<a href="#supp">Supprimer la galerie</a>
+				<a href="#supp" id="supp-galerie">Supprimer la galerie</a>
 			</div>
 		</div>
 	</aside>
-	<div id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title" style="display:none;">
-		<div class="modal_wrapper js-modal-stop">
+	<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title" style="display:none;">
+		<div class="modal-wrapper js-modal-stop">
 			<form action="#" method="post" id="modal_add"></form>
 				<div id="button-close">
+				<button id="button-back"><i class="fa-solid fa-arrow-left"></i></button>
 				<button class="js-modal-close modal-close"><i class="fa-sharp fa-solid fa-xmark"></i></button>
 				</div>
 				<h3>Ajout photo</h3>
@@ -95,7 +96,7 @@
 				<input type="text" list="Categorie" name="Categorie">
 				<datalist id="Categorie"></datalist>
 		</div>
-	</div>
+	</aside>
 
 </main>
 
