@@ -300,7 +300,6 @@ inputFile.addEventListener('change', function() {
 var title = document.getElementById("title")
 var categorie = document.getElementById("Categorie")
 var valide = document.getElementById("valider")
-
 valide.addEventListener("click",  async (e) => {
     e.preventDefault()
     var img = document.getElementById('file-input');
