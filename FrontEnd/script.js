@@ -134,6 +134,11 @@ export function modifier3(){
     document.querySelector(".modifier3").insertAdjacentHTML("beforeend",display)
 }
 
+//pour le token
+const token = localStorage.getItem("token");
+console.log(token);
+
+
 //pour la modal
 let modal = null
 
@@ -147,12 +152,12 @@ const openModal = function (e) {
     modal.addEventListener('click', closeModal)
     modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
-    console.log(target);
+    //console.log(target);
 }
 const openModal_add = function (e) {
     e.preventDefault()
     const target2 = document.getElementById('modal2')
-    console.log(target2);
+    //console.log(target2);
     target2.style.display = null
     target2.removeAttribute('aria-hidden')
     target2.setAttribute('aria-modal','true')
@@ -160,7 +165,7 @@ const openModal_add = function (e) {
     modal.addEventListener('click', closeModal)
     modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
-    console.log(target2);
+    //console.log(target2);
 }
 
 const closeModal = function (e) {
@@ -227,51 +232,103 @@ async function displayAll_modal(){
             gallery_modal.appendChild(figure)
             pictogramme.appendChild(i)
             displaynumber++
-            }
             
+            }
+            supp_img()
 }
 
-function supp_img_modal(){
-    let buttons = document.querySelectorAll(".figcaption")
-    //console.log(buttons)
-    for (const btn of buttons) {
-        //console.log(btn.value);
-        btn.addEventListener("click",() => {
-            //console.log(btn.value)
-                        let display =""
-                        display += `iciiiiii`
-                        document.querySelector(".figcaption").insertAdjacentHTML("beforeend",display)
-                        //console.log(btn.value);
-                    })
-     }  
-    }
 
-    
-function add_img_modal(){
-    let url = 'http://localhost:5678/api/works'
-    let add_img = {
-        title: emails.value,
-        imageUrl: passwords.value,
-        categoryId: categorie.value
-    }
-    console.log(add_img);
-    try {
-        const reponse = fetch(url, {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify(add_imd)
+function supp_img() {
+    let gallery = document.querySelectorAll(".figcaption")
+    for (let btn of gallery){
+        btn.addEventListener('click',() => {
+            console.log(btn.value);
+            let id = btn.value
+            delete_img(id)
         })
+    }
+   
 }
-catch (error) {
-    console.log("grosnull", error)
-}
-}
-
+ function delete_img(id) {
+    fetch(`http://localhost:5678/api/works/${id}`, {
+    method: "DELETE",
+    headers: { "Authorization": `Bearer ${token}` }
+  })
+    .then(response => {
+      if (response.ok) {
+        dynamicCard();
+      } else {
+        alert("Erreur lors de la suppression de l'image");
+      }
+    })
+ }
 
 window.addEventListener('keydown', function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
         closeModal(e)
     }
+})
+
+
+
+
+// pour la modal add
+const selectImage = document.querySelector('.select-image');
+const inputFile = document.querySelector('#file-input')
+const imgArea = document.querySelector('#block_pickture')
+
+selectImage.addEventListener('click', function(e) {
+    e.preventDefault()
+    inputFile.click();
+})
+
+inputFile.addEventListener('change', function() {
+    const image = this.files[0]
+    console.log(image);
+    const reader = new FileReader();
+    reader.onload = ()=> {
+        const allImg = imgArea.querySelectorAll('img')
+        allImg.forEach(item => item.remove())
+        const imgUrl = reader.result;
+        const img = document.createElement('img')
+        img.src = imgUrl;
+        imgArea.appendChild(img);
+        imgArea.classList.add('active')
+    }
+    reader.readAsDataURL(image);
+})
+var title = document.getElementById("title")
+var categorie = document.getElementById("Categorie")
+var valide = document.getElementById("valider")
+
+valide.addEventListener("click",  async (e) => {
+    e.preventDefault()
+    var img = document.getElementById('file-input');
+    var title = document.getElementById("title");
+    var categorie = document.getElementById("Categories");
+    const formData = {
+        image:img.files[0],
+        title:title.value,
+        category:categorie.value
+    } ;
+    let url = 'http://localhost:5678/api/works'
+    console.log(formData);
+    debugger
+    
+    await fetch(url,{
+        method: "POST",
+        headers: {"Authorization": `Bearer ${token}`},
+        body: formData,
+    })
+    .then((response) => {
+    if (response.ok) {
+    console.log("requete acceptée");
+    response.push(formData);
+    }
+    else {
+        console.log("erreur dans la récupération des donnés de l'API");
+    }})
+    console.log(fetchData);
 })
 //application
 

@@ -79,22 +79,42 @@
 	</aside>
 	<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title" style="display:none;">
 		<div class="modal-wrapper js-modal-stop">
-			<form action="#" method="post" id="modal_add"></form>
+
 				<div id="button-close">
 				<button id="button-back"><i class="fa-solid fa-arrow-left"></i></button>
 				<button class="js-modal-close modal-close"><i class="fa-sharp fa-solid fa-xmark"></i></button>
-				</div>
-				<h3>Ajout photo</h3>
+			</div>
+			<h3>Ajout photo</h3>
+			</form>
+			<form action="#" method="post" id="modal_add">
 				<div id="block_pickture">
-					<label for="image"><i class="fa-regular fa-image"></i></label>
-					<button type="image">+ Ajouter photo</button>
+					<input type="file" id="file-input" accept="image/*" hidden>
+					<i class="fa-sharp fa-regular fa-image"></i>
+					<div id="button_pickture">
+						<button class="select-image">ajouter une image</button>
+					</div>
 					<p>jpg.png : 4mo max</p>
 				</div>
+				<div class="label">
 				<label for="title">Titre</label>
+				</div>
 				<input type="text" name="title" id="title">
+				<div class="label">
 				<label for="text">Categorie</label>
-				<input type="text" list="Categorie" name="Categorie">
-				<datalist id="Categorie"></datalist>
+				</div>
+				<div id="class-bottom">
+				<input type="text" list="Categorie" name="Categorie" id="Categories">
+				<datalist id="Categorie">
+					<option value="Objets">
+					<option value="Appartements">
+					<option value="Hôtels & restaurants">
+				</datalist>
+				</div>
+				<div id="validor">
+					<button id="valider">valider</button>
+				</div>
+				<div id="add-image-error"></div>
+			</form>
 		</div>
 	</aside>
 
