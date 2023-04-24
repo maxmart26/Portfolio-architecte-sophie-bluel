@@ -259,3 +259,9 @@ body{
     
     background-color: #E5E5E5;
 }
+#erreur{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

@@ -14,16 +14,23 @@
 </head>
 <body>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
-	<nav>
-		<div id="top_nav"></div>
-		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<a href="login.html"><li>login</li></a>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-		</ul>
-	</nav>
+	<div id="top-add-pickture" style="display: none;">
+		<a href="#modal1" class="js-modal" style="display: none;"><i class="fa-sharp fa-solid fa-pen-to-square"></i>mode édition</a>
+		<button>publier les changements</button>
+	</div>
+	<div id="top_nav-all">
+		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+		<nav>
+			<div id="top_nav"></div>
+			<ul>
+				<li>projets</li>
+				<li>contact</li>
+				<a href="login.html" style="display: flex;" id="login"><li>login</li></a>
+				<a href="index.html" style="display: none;" id="logout">logout</a>
+				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			</ul>
+		</nav>
+	</div>
 </header>
 <main>
 	<section id="introduction">
@@ -39,10 +46,12 @@
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
 	</section>
+	<p id="add-projets2" style="display: none;">
+		<i class="fa-sharp fa-solid fa-pen-to-square"></i>modifier</p>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
-		<a href="#modal1" class="js-modal">
-			<i class="fa-sharp fa-solid fa-pen-to-square"></i>modifier</a>
+		<h2>Mes Projets
+		<span id="add-projets" style="display: none;">
+		<i class="fa-sharp fa-solid fa-pen-to-square"></i>modifier</span></h2>
 		<div class="modifier3"></div>
 		<div id="filtre">
 			<button class="filter" value="0" id="Tous" type="button">Tous</button>
@@ -79,8 +88,7 @@
 	</aside>
 	<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title" style="display:none;">
 		<div class="modal-wrapper js-modal-stop">
-
-				<div id="button-close">
+			<div id="button-close-modal">
 				<button id="button-back"><i class="fa-solid fa-arrow-left"></i></button>
 				<button class="js-modal-close modal-close"><i class="fa-sharp fa-solid fa-xmark"></i></button>
 			</div>
@@ -103,12 +111,11 @@
 				<label for="text">Categorie</label>
 				</div>
 				<div id="class-bottom">
-				<input type="text" list="Categorie" name="Categorie" id="Categories">
-				<datalist id="Categorie">
+				<select id="Categorie">
 					<option value="1">objet</option>
-					<option value="Appartements">
-					<option value="Hôtels & restaurants">
-				</datalist>
+					<option value="2">Appartements</option>
+					<option value="3">Hôtels & restaurants</option>
+				</select>
 				</div>
 				<div id="validor">
 					<button id="valider">valider</button>

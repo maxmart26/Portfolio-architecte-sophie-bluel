@@ -88,56 +88,45 @@ function supp(){
         gallery[0].removeChild(gallery[0].firstChild);
     }
 }
-// function pour apres le login
-
-export function top_nav(){
-    let display =""
-    display += 
-    `<div id="edition">
-    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-    Mode édition
-    </div>
-    <button id="button_edition">publier les changements</button>
-    `
-    document.querySelector("#top_nav").insertAdjacentHTML("beforeend",display)
-}
-
-export function modifier(){
-    let display =""
-    display += 
-    `<a href="#modal1" class="js-modal">
-    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-    modifier
-    </a>
-    `
-    document.querySelector(".modifier").insertAdjacentHTML("beforeend",display)
-}
-
-export function modifier2(){
-    let display =""
-    display += 
-    `<a href="#modal1" class="js-modal">
-    <i class="fa-sharp fa-solid fa-pen-to-square"></i>modifier
-    </a>
-    `
-    document.querySelector(".modifier2").insertAdjacentHTML("beforeend",display)
-}
-
-export function modifier3(){
-    let display =""
-    display += 
-    `<a href="#modal1" class="js-modal" id="test">
-    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-    modifier
-    </a>
-    `
-    document.querySelector(".modifier3").insertAdjacentHTML("beforeend",display)
-}
-
 //pour le token
 const token = localStorage.getItem("token");
 console.log(token);
+after_login()
+logout()
+// function pour apres le login
+function after_login(){
+    if (token != null)
+    {
+        const login = document.getElementById("login")
+        const logout = document.getElementById("logout")
+        const add_projets = document.getElementById("add-projets")
+        const add_projets2 = document.getElementById("add-projets2")
+        const target = document.querySelector(".js-modal")
+        const top = document.getElementById("top-add-pickture")
+        target.style.display = null
+        login.style.display = "none"
+        logout.style.display = null
+        top.style.display = null
+        add_projets.style.display = null
+        add_projets2.style.display = null
+    }
+}
+function logout(){
+    
+    const top = document.getElementById("top-add-pickture")
+    const logout = document.getElementById("logout")
+    const login = document.getElementById("login")
+    const target = document.querySelector(".js-modal")
+    logout.addEventListener("click",() => {
+        window.localStorage.clear();
+        target.style.display = "none"
+        login.style.display = null
+        logout.style.display = "none"
+        top.style.display = "none"
+        token = null
 
+
+})}
 
 //pour la modal
 let modal = null
@@ -157,7 +146,6 @@ const openModal = function (e) {
 const openModal_add = function (e) {
     e.preventDefault()
     const target2 = document.getElementById('modal2')
-    //console.log(target2);
     target2.style.display = null
     target2.removeAttribute('aria-hidden')
     target2.setAttribute('aria-modal','true')
@@ -165,29 +153,24 @@ const openModal_add = function (e) {
     modal.addEventListener('click', closeModal)
     modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
-    //console.log(target2);
 }
-
 const closeModal = function (e) {
     if (modal === null) return
     e.preventDefault()
-    modal.style.display = "none"
-    modal.setAttribute('aria-hidden', 'true')
-    modal.removeAttribute('aria-modal')
-    modal.removeEventListener('click', closeModal)
-    modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
-    modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
+    const target = document.getElementById('modal1')
+    const target2 = document.getElementById('modal2')
+    target2.style.display = "none"
+    target.style.display = "none"
+    target.setAttribute('aria-hidden', 'true')
+    target.removeAttribute('aria-modal')
+    target.removeEventListener('click', closeModal)
+    target.querySelector('.js-modal-close').removeEventListener('click', closeModal)
+    target.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
     modal = null
 }
-const all_closeModal = function(e){
-    if (modal === null) return
-    e.preventDefault()
-    modal.style.display = "none"
-    modal.setAttribute('aria-hidden', 'true')
-    modal.removeAttribute('aria-modal')
-    modal.removeEventListener('click', closeModal)
-    modal = null
-    closeModal()
+const close_Modal_add = function (e){
+    const target2 = document.getElementById('modal2')
+    target2.style.display = "none"
 } 
 const stopPropagation = function (e) {
     e.stopPropagation()
@@ -197,7 +180,7 @@ document.querySelectorAll('.js-modal').forEach(a => {
 })
 
 document.querySelectorAll('#button-back').forEach(a => {
-    a.addEventListener('click', closeModal)
+    a.addEventListener('click', close_Modal_add)
 })
 
 document.querySelectorAll('.js-add-pickture').forEach(a => { 
@@ -205,7 +188,7 @@ document.querySelectorAll('.js-add-pickture').forEach(a => {
 })
 document.querySelectorAll('.js-modal-close').forEach(a => { 
     
-        a.addEventListener('click', all_closeModal)
+        a.addEventListener('click', closeModal)
 })
 
 
@@ -223,7 +206,7 @@ async function displayAll_modal(){
             i.classList.add("fa-regular")
             i.classList.add("fa-trash-can")
             i.classList.add("supp")
-            pictogramme.value = displaynumber
+            pictogramme.value = data.id
             display1.src = data.imageUrl
             i.value = displaynumber
             display1.classList.add("gallery-modal")
@@ -254,13 +237,6 @@ function supp_img() {
     method: "DELETE",
     headers: { "Authorization": `Bearer ${token}` }
   })
-    .then(response => {
-      if (response.ok) {
-        dynamicCard();
-      } else {
-        alert("Erreur lors de la suppression de l'image");
-      }
-    })
  }
 
 window.addEventListener('keydown', function (e) {
@@ -300,20 +276,22 @@ inputFile.addEventListener('change', function() {
 var title = document.getElementById("title")
 var categorie = document.getElementById("Categorie")
 var valide = document.getElementById("valider")
+
 valide.addEventListener("click",  async (e) => {
     e.preventDefault()
     var img = document.getElementById('file-input');
     var title = document.getElementById("title");
-    var categorie = document.getElementById("Categories");
-    const formData = {
-        image:img.files[0],
-        title:title.value,
-        category:categorie.value
-    } ;
+    var categorie = document.getElementById("Categorie");
+    const formData = new FormData
+    formData.append("image", img.files[0]);
+    formData.append("title", title.value);
+    formData.append("category", categorie.value)
     let url = 'http://localhost:5678/api/works'
     console.log(formData);
     debugger
-    
+    console.log(img.files[0]);
+    console.log(title.value);
+    console.log(categorie.value);
     await fetch(url,{
         method: "POST",
         headers: {"Authorization": `Bearer ${token}`},
@@ -335,9 +313,3 @@ await categories()
 displayAll()
 addListener()
 displayAll_modal();
-//pour les tests
-    top_nav();
-    modifier();
-    modifier2();
-    modifier3();
-    
