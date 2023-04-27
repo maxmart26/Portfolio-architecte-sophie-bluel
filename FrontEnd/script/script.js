@@ -3,10 +3,6 @@ const filtres = document.getElementById("filtre");
 const gallery_modal = document.getElementById("gallery-modal");
 
 // function
-
-export function alerte () {alert ("coucou");
-}
-
 async function categories(){//pour afficher les categories de l'API
     let url = 'http://localhost:5678/api/categories'
     let displaynumber = 1;
@@ -22,14 +18,13 @@ async function categories(){//pour afficher les categories de l'API
         displaynumber++
     } 
 };
-
 function displayAll(){ // pour afficher toute les images de l'API
     let url = 'http://localhost:5678/api/works'
         try {
             fetch(url)
         .then(reponse => reponse.json())
         .then((reponse2)=>{
-            console.log(reponse2);
+            //console.log(reponse2);
             for(let data of reponse2){
                 let display =""
                 display += `<figure> 
@@ -44,7 +39,6 @@ function displayAll(){ // pour afficher toute les images de l'API
             console.log("grosnull" + error)
         }
     }
-
 let url = 'http://localhost:5678/api/works'
 
 function addListener(){// function pour afficher les images avec la bonne categorie selectionner 
@@ -90,7 +84,7 @@ function supp(){// pour supprimer les photos afficher mais sans les supp de l'AP
 }
 //pour le token
 const token = localStorage.getItem("token");
-console.log(token);
+//console.log(token);
 after_login()
 logout()
 // function pour apres le login
