@@ -3,7 +3,7 @@ var passwords = document.getElementById("password");
 let button = document.getElementById("connection")
 var compteur = 0;
 
-button.addEventListener("click", async (e) => {
+button.addEventListener("click", async (e) => {// function pour ce login et demande a l'API
     e.preventDefault()
     let login = {
         email: emails.value,

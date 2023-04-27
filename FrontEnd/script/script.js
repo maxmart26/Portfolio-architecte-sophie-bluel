@@ -7,7 +7,7 @@ const gallery_modal = document.getElementById("gallery-modal");
 export function alerte () {alert ("coucou");
 }
 
-async function categories(){
+async function categories(){//pour afficher les categories de l'API
     let url = 'http://localhost:5678/api/categories'
     let displaynumber = 1;
     const res = await fetch(url)
@@ -23,7 +23,7 @@ async function categories(){
     } 
 };
 
-function displayAll(){
+function displayAll(){ // pour afficher toute les images de l'API
     let url = 'http://localhost:5678/api/works'
         try {
             fetch(url)
@@ -47,7 +47,7 @@ function displayAll(){
 
 let url = 'http://localhost:5678/api/works'
 
-function addListener(){
+function addListener(){// function pour afficher les images avec la bonne categorie selectionner 
     let buttons = document.querySelectorAll(".filter")
     //console.log(buttons)
     for (const btn of buttons) {
@@ -81,7 +81,7 @@ function addListener(){
     }
 }
 
-function supp(){
+function supp(){// pour supprimer les photos afficher mais sans les supp de l'API
     let gallery = document.getElementsByClassName("gallery");
     let supp = document.getElementById("gellery");
     while (gallery[0].firstChild) {
@@ -111,8 +111,7 @@ function after_login(){
         add_projets2.style.display = null
     }
 }
-function logout(){
-    
+function logout(){// pour afficher logout sur l'index
     const top = document.getElementById("top-add-pickture")
     const logout = document.getElementById("logout")
     const login = document.getElementById("login")
@@ -131,7 +130,7 @@ function logout(){
 //pour la modal
 let modal = null
 
-const openModal = function (e) {
+const openModal = function (e) {// affiche la modal pour supprimer 
     e.preventDefault()
     const target = document.querySelector(e.target.getAttribute('href'))
     target.style.display = null
@@ -143,7 +142,7 @@ const openModal = function (e) {
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
     //console.log(target);
 }
-const openModal_add = function (e) {
+const openModal_add = function (e) {// affiche la modal pour add une image
     e.preventDefault()
     const target2 = document.getElementById('modal2')
     target2.style.display = null
@@ -154,7 +153,7 @@ const openModal_add = function (e) {
     modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
 }
-const closeModal = function (e) {
+const closeModal = function (e) {// pour fermer la premiere modal
     if (modal === null) return
     e.preventDefault()
     const target = document.getElementById('modal1')
@@ -168,31 +167,30 @@ const closeModal = function (e) {
     target.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
     modal = null
 }
-const close_Modal_add = function (e){
+const close_Modal_add = function (e){ //pour fermer la premiere modal
     const target2 = document.getElementById('modal2')
     target2.style.display = "none"
 } 
-const stopPropagation = function (e) {
+const stopPropagation = function (e) { // pour que quand on clique a l'exterieur de la modal on la ferme
     e.stopPropagation()
 }
-document.querySelectorAll('.js-modal').forEach(a => {
+document.querySelectorAll('.js-modal').forEach(a => {//ouvre la modal
     a.addEventListener('click', openModal)
 })
 
-document.querySelectorAll('#button-back').forEach(a => {
+document.querySelectorAll('#button-back').forEach(a => {// ferme la deuxieme modal
     a.addEventListener('click', close_Modal_add)
 })
 
-document.querySelectorAll('.js-add-pickture').forEach(a => { 
+document.querySelectorAll('.js-add-pickture').forEach(a => { //ouvre la deuxieme modal pour l'add
     a.addEventListener('click', openModal_add)  
 })
-document.querySelectorAll('.js-modal-close').forEach(a => { 
-    
+document.querySelectorAll('.js-modal-close').forEach(a => { //ferme la premiere modal
         a.addEventListener('click', closeModal)
 })
 
 
-async function displayAll_modal(){
+async function displayAll_modal(){//pour afficher les images pour selectionner si on veut en supp une 
     let url = 'http://localhost:5678/api/works'
             let displaynumber = 1;
             const res = await fetch(url)
@@ -215,13 +213,12 @@ async function displayAll_modal(){
             gallery_modal.appendChild(figure)
             pictogramme.appendChild(i)
             displaynumber++
-            
             }
             supp_img()
 }
 
 
-function supp_img() {
+function supp_img() {//pour savoir sur quelle image un a selectionner et envoyer son id a la function delete_img
     let gallery = document.querySelectorAll(".figcaption")
     for (let btn of gallery){
         btn.addEventListener('click',() => {
@@ -232,22 +229,17 @@ function supp_img() {
     }
    
 }
- function delete_img(id) {
+function delete_img(id) {//pour supprimer l'image de l'API
     fetch(`http://localhost:5678/api/works/${id}`, {
     method: "DELETE",
     headers: { "Authorization": `Bearer ${token}` }
   })
- }
-
-window.addEventListener('keydown', function (e) {
+}
+window.addEventListener('keydown', function (e) {//pour fermer les modals quand on appuis sur echap ou espace
     if (e.key === "Escape" || e.key === "Esc") {
         closeModal(e)
     }
 })
-
-
-
-
 // pour la modal add
 const selectImage = document.querySelector('.select-image');
 const inputFile = document.querySelector('#file-input')
@@ -258,7 +250,7 @@ selectImage.addEventListener('click', function(e) {
     inputFile.click();
 })
 
-inputFile.addEventListener('change', function() {
+inputFile.addEventListener('change', function() {// pour afficher l'image avant de l'ajouter
     const image = this.files[0]
     console.log(image);
     const reader = new FileReader();
@@ -273,11 +265,10 @@ inputFile.addEventListener('change', function() {
     }
     reader.readAsDataURL(image);
 })
-var title = document.getElementById("title")
-var categorie = document.getElementById("Categorie")
+
 var valide = document.getElementById("valider")
 
-valide.addEventListener("click",  async (e) => {
+valide.addEventListener("click",  async (e) => {// pour ajouter une image a l'API
     e.preventDefault()
     var img = document.getElementById('file-input');
     var title = document.getElementById("title");
